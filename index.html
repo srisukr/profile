@@ -372,6 +372,59 @@
         pointer-events: none;
       }
 
+      /* ─── SLIDE 6 — CTA BUTTONS ─── */
+      .close-cta {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.7rem;
+        margin-top: 2rem;
+      }
+
+      .cta-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.7rem 1.6rem;
+        border-radius: 100px;
+        font-family: var(--font-body);
+        font-size: 0.82rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.25s ease;
+        min-width: 220px;
+        justify-content: center;
+      }
+
+      .cta-btn-primary {
+        background: rgba(200,164,94,0.15);
+        border: 1px solid rgba(200,164,94,0.3);
+        color: rgba(200,164,94,0.9);
+      }
+
+      .cta-btn-primary:hover {
+        background: rgba(200,164,94,0.25);
+        border-color: rgba(200,164,94,0.5);
+        color: #fff;
+      }
+
+      .cta-btn-secondary {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: rgba(255,255,255,0.5);
+      }
+
+      .cta-btn-secondary:hover {
+        background: rgba(255,255,255,0.08);
+        border-color: rgba(255,255,255,0.2);
+        color: rgba(255,255,255,0.8);
+      }
+
+      .cta-icon {
+        font-size: 1rem;
+        line-height: 1;
+      }
+
       /* ─── SHARED TYPOGRAPHY ─── */
       .eyebrow {
         font-size: 0.68rem;
@@ -875,9 +928,7 @@
       .slide.active .traits {
         animation: fadeUp 0.55s 0.45s ease both;
       }
-      .slide.active .close-contact {
-        animation: fadeUp 0.55s 0.55s ease both;
-      }
+      .slide.active .close-cta { animation: fadeUp 0.55s 0.55s ease both; }
 
       /* ─── NAV DOTS ─── */
       .nav-dots {
@@ -1180,9 +1231,13 @@
           I thrive at the intersection of food, retail, and digital — turning
           customer platforms into growth engines.
         </p>
-        <div class="close-contact">
-          <a href="mailto:srisuk.r@gmail.com">srisuk.r@gmail.com</a>
-          <span class="phone">+66-95-565-2419</span>
+        <div class="close-cta">
+          <a href="mailto:srisuk.r@gmail.com" class="cta-btn cta-btn-primary">
+          srisuk.r@gmail.com
+        </a>
+          <a href="tel:+66955652419" class="cta-btn cta-btn-secondary">
+          +66-95-565-2419
+        </a>
         </div>
       </div>
     </div>
