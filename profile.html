@@ -1,0 +1,1270 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Srisuk Rujisaritwong</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Outfit:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --font-display: "Cormorant Garamond", serif;
+        --font-body: "Outfit", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #0a0a0a;
+        color: #fff;
+        font-family: var(--font-body);
+        -webkit-font-smoothing: antialiased;
+        user-select: none;
+      }
+
+      /* ─── SLIDES ─── */
+      .deck {
+        position: relative;
+        width: 100%;
+        height: 100%;
+      }
+
+      .slide {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        padding: 2rem 1.5rem;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+          opacity 0.7s ease,
+          visibility 0.7s ease;
+        z-index: 0;
+      }
+
+      .slide.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 1;
+      }
+
+      /* ─── BACKGROUNDS ─── */
+      .slide-1 {
+        background: linear-gradient(
+          160deg,
+          #0f1923 0%,
+          #1a2a3a 40%,
+          #0d1520 100%
+        );
+      }
+      .slide-1::before {
+        content: "";
+        position: absolute;
+        top: -15%;
+        right: -8%;
+        width: 55vw;
+        height: 55vw;
+        max-width: 480px;
+        max-height: 480px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 164, 94, 0.07) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* Floating keyword cloud */
+      .keyword-cloud {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .kw {
+        position: absolute;
+        font-family: var(--font-body);
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.04);
+        white-space: nowrap;
+        animation: kwDrift linear infinite;
+      }
+
+      .kw:nth-child(1) {
+        font-size: 1.4rem;
+        top: 8%;
+        left: 5%;
+        animation-duration: 28s;
+        animation-delay: 0s;
+      }
+      .kw:nth-child(2) {
+        font-size: 1.1rem;
+        top: 18%;
+        right: 8%;
+        animation-duration: 34s;
+        animation-delay: -4s;
+      }
+      .kw:nth-child(3) {
+        font-size: 1.6rem;
+        top: 32%;
+        left: 12%;
+        animation-duration: 30s;
+        animation-delay: -8s;
+      }
+      .kw:nth-child(4) {
+        font-size: 0.9rem;
+        top: 55%;
+        right: 15%;
+        animation-duration: 26s;
+        animation-delay: -2s;
+      }
+      .kw:nth-child(5) {
+        font-size: 1.3rem;
+        top: 70%;
+        left: 3%;
+        animation-duration: 32s;
+        animation-delay: -6s;
+      }
+      .kw:nth-child(6) {
+        font-size: 1rem;
+        top: 82%;
+        right: 5%;
+        animation-duration: 29s;
+        animation-delay: -10s;
+      }
+      .kw:nth-child(7) {
+        font-size: 1.5rem;
+        top: 45%;
+        left: 60%;
+        animation-duration: 35s;
+        animation-delay: -3s;
+      }
+      .kw:nth-child(8) {
+        font-size: 0.85rem;
+        top: 15%;
+        left: 55%;
+        animation-duration: 27s;
+        animation-delay: -7s;
+      }
+      .kw:nth-child(9) {
+        font-size: 1.2rem;
+        top: 65%;
+        right: 30%;
+        animation-duration: 31s;
+        animation-delay: -5s;
+      }
+      .kw:nth-child(10) {
+        font-size: 1rem;
+        top: 90%;
+        left: 40%;
+        animation-duration: 33s;
+        animation-delay: -9s;
+      }
+
+      @keyframes kwDrift {
+        0% {
+          transform: translateX(0) translateY(0);
+          opacity: 0.03;
+        }
+        25% {
+          transform: translateX(15px) translateY(-8px);
+          opacity: 0.06;
+        }
+        50% {
+          transform: translateX(-10px) translateY(5px);
+          opacity: 0.04;
+        }
+        75% {
+          transform: translateX(8px) translateY(-12px);
+          opacity: 0.06;
+        }
+        100% {
+          transform: translateX(0) translateY(0);
+          opacity: 0.03;
+        }
+      }
+
+      /* Stat strip */
+      .stat-strip {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .stat-item {
+        text-align: center;
+      }
+
+      .stat-num {
+        font-family: var(--font-display);
+        font-size: clamp(1.4rem, 3.5vw, 1.8rem);
+        font-weight: 700;
+        color: rgba(200, 164, 94, 0.7);
+        line-height: 1.1;
+      }
+
+      .stat-label {
+        font-size: 0.62rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 0.15rem;
+      }
+
+      .stat-divider {
+        width: 1px;
+        background: rgba(255, 255, 255, 0.08);
+        align-self: stretch;
+      }
+
+      /* Context line */
+      .context-line {
+        font-size: 0.78rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 0.8rem;
+        max-width: 400px;
+        letter-spacing: 0.02em;
+      }
+
+      .slide-2 {
+        background: linear-gradient(
+          160deg,
+          #1a2e1a 0%,
+          #0f1f12 60%,
+          #0a150b 100%
+        );
+      }
+      .slide-2::before {
+        content: "";
+        position: absolute;
+        bottom: -10%;
+        left: -8%;
+        width: 50vw;
+        height: 50vw;
+        max-width: 440px;
+        max-height: 440px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(76, 160, 100, 0.07) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .slide-3 {
+        background: linear-gradient(
+          160deg,
+          #1f1a2e 0%,
+          #150f25 60%,
+          #0d0a18 100%
+        );
+      }
+      .slide-3::before {
+        content: "";
+        position: absolute;
+        top: 10%;
+        right: -5%;
+        width: 45vw;
+        height: 45vw;
+        max-width: 400px;
+        max-height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(140, 100, 200, 0.07) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .slide-4 {
+        background: linear-gradient(
+          160deg,
+          #2a1f14 0%,
+          #1e150d 60%,
+          #140e08 100%
+        );
+      }
+      .slide-4::before {
+        content: "";
+        position: absolute;
+        bottom: 5%;
+        right: 10%;
+        width: 50vw;
+        height: 50vw;
+        max-width: 460px;
+        max-height: 460px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 140, 60, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .slide-5 {
+        background: linear-gradient(
+          160deg,
+          #1a2025 0%,
+          #0f1418 60%,
+          #0a0e12 100%
+        );
+      }
+      .slide-5::before {
+        content: "";
+        position: absolute;
+        top: -8%;
+        left: 15%;
+        width: 40vw;
+        height: 40vw;
+        max-width: 380px;
+        max-height: 380px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(80, 160, 180, 0.06) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      .slide-6 {
+        background: linear-gradient(160deg, #14110e 0%, #0a0a0a 100%);
+      }
+      .slide-6::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 45vw;
+        height: 45vw;
+        max-width: 400px;
+        max-height: 400px;
+        border-radius: 50%;
+        background: radial-gradient(
+          circle,
+          rgba(200, 164, 94, 0.05) 0%,
+          transparent 70%
+        );
+        pointer-events: none;
+      }
+
+      /* ─── SHARED TYPOGRAPHY ─── */
+      .eyebrow {
+        font-size: 0.68rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: rgba(255, 255, 255, 0.3);
+        margin-bottom: 0.8rem;
+      }
+
+      .main-text {
+        font-family: var(--font-display);
+        font-size: clamp(2.4rem, 7vw, 4.5rem);
+        font-weight: 700;
+        line-height: 1.05;
+        letter-spacing: -0.02em;
+      }
+
+      .sub-text {
+        font-size: clamp(0.85rem, 2vw, 1.05rem);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.45);
+        margin-top: 0.7rem;
+        max-width: 420px;
+        line-height: 1.55;
+      }
+
+      .bottom-text {
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.2);
+        margin-top: 1.5rem;
+        letter-spacing: 0.06em;
+      }
+
+      /* ─── PILL BADGES ─── */
+      .pill {
+        display: inline-block;
+        padding: 0.45rem 1.1rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        font-size: 0.76rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.55);
+        letter-spacing: 0.01em;
+      }
+
+      .pill strong {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      /* ─── SLIDE 2 — THREE COLUMNS ─── */
+      .three-cols {
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        margin-top: 1.8rem;
+        max-width: 520px;
+        width: 100%;
+      }
+
+      @media (min-width: 768px) {
+        .three-cols {
+          flex-direction: row;
+          gap: 1.5rem;
+          max-width: 720px;
+        }
+      }
+
+      .col-card {
+        flex: 1;
+        text-align: left;
+        padding: 1rem 1.1rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .col-card-title {
+        font-size: 0.72rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 0.4rem;
+      }
+
+      .slide-2 .col-card:nth-child(1) .col-card-title {
+        color: rgba(120, 210, 160, 0.8);
+      }
+      .slide-2 .col-card:nth-child(2) .col-card-title {
+        color: rgba(130, 200, 140, 0.8);
+      }
+      .slide-2 .col-card:nth-child(3) .col-card-title {
+        color: rgba(100, 190, 130, 0.8);
+      }
+
+      .col-card-desc {
+        font-size: 0.76rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.4);
+        line-height: 1.55;
+      }
+
+      /* ─── SLIDE 3 — TWO BLOCKS ─── */
+      .two-blocks {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.8rem;
+        max-width: 580px;
+        width: 100%;
+      }
+
+      @media (min-width: 768px) {
+        .two-blocks {
+          flex-direction: row;
+          gap: 1.2rem;
+          max-width: 680px;
+        }
+      }
+
+      .sig-block {
+        flex: 1;
+        text-align: left;
+        padding: 1.1rem 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.02);
+        position: relative;
+      }
+
+      .sig-block-num {
+        font-family: var(--font-display);
+        font-size: clamp(1.8rem, 4.5vw, 2.4rem);
+        font-weight: 700;
+        color: rgba(180, 140, 220, 0.7);
+        line-height: 1.1;
+      }
+
+      .sig-block:nth-child(2) .sig-block-num {
+        color: rgba(200, 164, 94, 0.7);
+      }
+
+      .sig-block-label {
+        font-size: 0.78rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.6);
+        margin-top: 0.3rem;
+        line-height: 1.4;
+      }
+
+      .sig-block-desc {
+        font-size: 0.72rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.3);
+        margin-top: 0.4rem;
+        line-height: 1.55;
+      }
+
+      .sig-bottom {
+        font-size: 0.74rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.25);
+        margin-top: 1.5rem;
+        max-width: 500px;
+        line-height: 1.55;
+        font-style: italic;
+      }
+
+      .stat-row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 0.6rem;
+        margin-top: 1.5rem;
+      }
+
+      /* ─── SLIDE 4 — BULLSEYE ─── */
+      .bullseye {
+        position: relative;
+        width: min(380px, 80vw);
+        height: min(380px, 80vw);
+        margin-top: 1.5rem;
+      }
+
+      .bullseye-ring {
+        position: absolute;
+        border-radius: 50%;
+        border: 1px solid rgba(200, 148, 62, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      /* Outer ring */
+      .ring-outer {
+        inset: 0;
+        border-color: rgba(255, 255, 255, 0.04);
+      }
+
+      /* Middle ring */
+      .ring-mid {
+        inset: 18%;
+        border-color: rgba(200, 148, 62, 0.1);
+        background: rgba(200, 148, 62, 0.02);
+      }
+
+      /* Center */
+      .ring-center {
+        inset: 38%;
+        border-color: rgba(200, 148, 62, 0.2);
+        background: rgba(200, 148, 62, 0.06);
+      }
+
+      .ring-center-text {
+        font-family: var(--font-display);
+        font-size: clamp(0.85rem, 2.5vw, 1.05rem);
+        font-weight: 700;
+        color: rgba(220, 170, 80, 0.85);
+        text-align: center;
+        line-height: 1.2;
+      }
+
+      /* Core industry labels on middle ring */
+      .bull-label {
+        position: absolute;
+        text-align: center;
+        max-width: 130px;
+      }
+
+      .bull-label-name {
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.65);
+        line-height: 1.25;
+      }
+
+      .bull-label-co {
+        font-size: 0.62rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.28);
+        margin-top: 0.1rem;
+        line-height: 1.35;
+      }
+
+      /* Position core labels around middle ring */
+      .bull-label.pos-top {
+        top: 4%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .bull-label.pos-left {
+        top: 58%;
+        left: -2%;
+        transform: translateX(0);
+        text-align: left;
+      }
+
+      .bull-label.pos-right {
+        top: 58%;
+        right: -2%;
+        transform: translateX(0);
+        text-align: right;
+      }
+
+      /* Adjacent labels on outer ring */
+      .bull-adj {
+        position: absolute;
+        font-size: 0.62rem;
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.18);
+        letter-spacing: 0.04em;
+      }
+
+      .bull-adj.adj-tl {
+        top: 8%;
+        left: 5%;
+      }
+      .bull-adj.adj-tr {
+        top: 12%;
+        right: 3%;
+      }
+      .bull-adj.adj-b {
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      /* Connecting dots on the middle ring edge */
+      .bull-dot {
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(200, 148, 62, 0.35);
+      }
+
+      .bull-dot.dot-top {
+        top: 17.5%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .bull-dot.dot-left {
+        top: 65%;
+        left: 17.5%;
+        transform: translate(-50%, -50%);
+      }
+      .bull-dot.dot-right {
+        top: 65%;
+        right: 17.5%;
+        transform: translate(50%, -50%);
+      }
+
+      .bullseye-bottom {
+        font-size: 0.72rem;
+        font-weight: 400;
+        color: rgba(255, 255, 255, 0.2);
+        margin-top: 1.2rem;
+        letter-spacing: 0.02em;
+        text-align: center;
+      }
+
+      .bullseye-bottom strong {
+        color: rgba(255, 255, 255, 0.4);
+        font-weight: 600;
+      }
+
+      @media (min-width: 768px) {
+        .bullseye {
+          width: 400px;
+          height: 400px;
+        }
+      }
+      .markers {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.8rem;
+        max-width: 460px;
+        width: 100%;
+      }
+
+      .marker {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.8rem;
+        text-align: left;
+      }
+
+      .marker-dot {
+        flex-shrink: 0;
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        margin-top: 0.35rem;
+      }
+
+      .slide-4 .marker:nth-child(1) .marker-dot {
+        background: rgba(220, 170, 80, 0.5);
+      }
+      .slide-4 .marker:nth-child(2) .marker-dot {
+        background: rgba(220, 170, 80, 0.35);
+      }
+      .slide-4 .marker:nth-child(3) .marker-dot {
+        background: rgba(220, 170, 80, 0.2);
+      }
+
+      .marker-label {
+        font-size: 0.78rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .marker-desc {
+        font-size: 0.74rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 0.1rem;
+        line-height: 1.5;
+      }
+
+      /* ─── SLIDE 5 — TRAITS ─── */
+      .traits {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.8rem;
+        max-width: 460px;
+        width: 100%;
+      }
+
+      .trait {
+        text-align: left;
+        padding: 0.8rem 1rem;
+        border-left: 2px solid rgba(80, 160, 180, 0.2);
+      }
+
+      .trait:nth-child(1) {
+        border-left-color: rgba(80, 160, 180, 0.4);
+      }
+      .trait:nth-child(2) {
+        border-left-color: rgba(80, 160, 180, 0.28);
+      }
+      .trait:nth-child(3) {
+        border-left-color: rgba(80, 160, 180, 0.18);
+      }
+
+      .trait-title {
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.7);
+      }
+
+      .trait-desc {
+        font-size: 0.74rem;
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.35);
+        margin-top: 0.15rem;
+        line-height: 1.5;
+      }
+
+      /* ─── SLIDE 6 — CLOSE ─── */
+      .close-sub {
+        font-size: clamp(0.85rem, 2vw, 1rem);
+        font-weight: 300;
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 0.8rem;
+        max-width: 440px;
+        line-height: 1.65;
+      }
+
+      .close-contact {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.3rem;
+        font-size: 0.8rem;
+      }
+
+      .close-contact a {
+        color: rgba(200, 164, 94, 0.7);
+        text-decoration: none;
+        font-weight: 500;
+        transition: color 0.2s ease;
+      }
+
+      .close-contact a:hover {
+        color: rgba(200, 164, 94, 1);
+      }
+
+      .close-contact .phone {
+        color: rgba(255, 255, 255, 0.25);
+        font-weight: 300;
+        font-size: 0.76rem;
+      }
+
+      /* ─── INNER ANIMATIONS ─── */
+      .slide.active .eyebrow {
+        animation: fadeUp 0.55s 0.15s ease both;
+      }
+      .slide.active .main-text {
+        animation: fadeUp 0.55s 0.28s ease both;
+      }
+      .slide.active .sub-text,
+      .slide.active .close-sub {
+        animation: fadeUp 0.55s 0.4s ease both;
+      }
+      .slide.active .stat-strip {
+        animation: fadeUp 0.55s 0.52s ease both;
+      }
+      .slide.active .context-line {
+        animation: fadeUp 0.55s 0.6s ease both;
+      }
+      .slide.active .bottom-text {
+        animation: fadeUp 0.55s 0.68s ease both;
+      }
+      .slide.active .three-cols {
+        animation: fadeUp 0.55s 0.45s ease both;
+      }
+      .slide.active .two-blocks {
+        animation: fadeUp 0.55s 0.45s ease both;
+      }
+      .slide.active .sig-bottom {
+        animation: fadeUp 0.55s 0.58s ease both;
+      }
+      .slide.active .stat-row {
+        animation: fadeUp 0.55s 0.5s ease both;
+      }
+      .slide.active .bullseye {
+        animation: fadeUp 0.55s 0.45s ease both;
+      }
+      .slide.active .bullseye-bottom {
+        animation: fadeUp 0.55s 0.6s ease both;
+      }
+      .slide.active .markers {
+        animation: fadeUp 0.55s 0.45s ease both;
+      }
+      .slide.active .traits {
+        animation: fadeUp 0.55s 0.45s ease both;
+      }
+      .slide.active .close-contact {
+        animation: fadeUp 0.55s 0.55s ease both;
+      }
+
+      /* ─── NAV DOTS ─── */
+      .nav-dots {
+        position: fixed;
+        bottom: 1.5rem;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 0.5rem;
+        z-index: 100;
+      }
+
+      .nav-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.12);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        border: none;
+        padding: 0;
+      }
+
+      .nav-dot.active {
+        background: rgba(255, 255, 255, 0.6);
+        transform: scale(1.35);
+      }
+
+      .nav-dot:hover {
+        background: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ─── COUNTER ─── */
+      .counter {
+        position: fixed;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 0.72rem;
+        color: rgba(255, 255, 255, 0.18);
+        font-weight: 500;
+        letter-spacing: 0.06em;
+        z-index: 100;
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ─── HINT ─── */
+      .hint {
+        position: fixed;
+        bottom: 3.2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 0.6rem;
+        color: rgba(255, 255, 255, 0.15);
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        z-index: 100;
+        transition: opacity 0.5s ease;
+      }
+
+      .hint.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      @media (hover: none) {
+        .hint {
+          display: none;
+        }
+      }
+
+      /* ─── TOUCH ZONES ─── */
+      .touch-left,
+      .touch-right {
+        position: fixed;
+        top: 0;
+        bottom: 80px;
+        width: 28%;
+        z-index: 50;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .touch-left {
+        left: 0;
+      }
+      .touch-right {
+        right: 0;
+      }
+
+      @media (min-width: 768px) {
+        .touch-left,
+        .touch-right {
+          display: none;
+        }
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(16px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <!-- SLIDE 1 — HOOK -->
+      <div class="slide slide-1 active" data-slide="1">
+        <div class="keyword-cloud">
+          <span class="kw">Loyalty</span>
+          <span class="kw">E-commerce</span>
+          <span class="kw">CRM</span>
+          <span class="kw">Omnichannel</span>
+          <span class="kw">Data Platform</span>
+          <span class="kw">Martech</span>
+          <span class="kw">Customer Experience</span>
+          <span class="kw">Digital Strategy</span>
+          <span class="kw">LINE OA</span>
+          <span class="kw">AI</span>
+        </div>
+        <div class="eyebrow" style="position: relative; z-index: 1">
+          Digital & Technology Leadership
+        </div>
+        <h1 class="main-text" style="position: relative; z-index: 1">
+          Srisuk<br />Rujisaritwong
+        </h1>
+        <p class="sub-text" style="position: relative; z-index: 1">
+          Where technology meets the customer
+        </p>
+        <div class="stat-strip" style="position: relative; z-index: 1">
+          <div class="stat-item">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Years</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-num">5</div>
+            <div class="stat-label">Industries</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <div class="stat-num">150M+</div>
+            <div class="stat-label">THB Delivered</div>
+          </div>
+        </div>
+        <p class="context-line" style="position: relative; z-index: 1">
+          Enterprise technology and digital strategy, customer and loyalty platforms, and data ecosystems at scale
+        </p>
+      </div>
+
+      <!-- SLIDE 2 — WHAT I DO -->
+      <div class="slide slide-2" data-slide="2">
+        <div class="eyebrow">Core Expertise</div>
+        <h2 class="main-text" style="font-size: clamp(1.8rem, 5vw, 3.2rem)">
+          Built to<br />Deliver
+        </h2>
+        <div class="three-cols">
+          <div class="col-card">
+            <div class="col-card-title">Omnichannel Loyalty Program</div>
+            <div class="col-card-desc">
+              Mobile App, Web, Loyalty, POS aggregators, LINE OA — connected into
+              one seamless customer journey
+            </div>
+          </div>
+          <div class="col-card">
+            <div class="col-card-title">Martech, Data & AI</div>
+            <div class="col-card-desc">
+              CRM, CDP, campaign management, customer intelligence — turning
+              data into growth decisions
+            </div>
+          </div>
+          <div class="col-card">
+            <div class="col-card-title">Stakeholder Alignment</div>
+            <div class="col-card-desc">
+              Cross-regional coordination, leadership, partners — getting everyone moving together
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 — TWO SIGNATURE MOMENTS -->
+      <div class="slide slide-3" data-slide="3">
+        <div class="eyebrow">Proven at Scale</div>
+        <h2 class="main-text" style="font-size: clamp(1.8rem, 5.5vw, 3.2rem)">
+          Two Programs<br />That Define Me
+        </h2>
+        <div class="two-blocks">
+          <div class="sig-block">
+            <div class="sig-block-num">150M+ THB</div>
+            <div class="sig-block-label">Customer Loyalty Ecosystem</div>
+            <div class="sig-block-desc">
+              End-to-end integration spanning POS, Mobile App, Website, LINE OA,
+              CRM, Marketing Automation, and CDP — delivered across Thailand &
+              Malaysia during a major M&A transition
+            </div>
+          </div>
+          <div class="sig-block">
+            <div class="sig-block-num">500M THB</div>
+            <div class="sig-block-label">Enterprise Dealer Management</div>
+            <div class="sig-block-desc">
+              Key technology coordinator managing 300+ onshore & offshore
+              contributors — overseeing delivery lifecycle and quality
+              governance as lead IT consultant
+            </div>
+          </div>
+        </div>
+        <p class="sig-bottom">
+          Enterprise-scale programs delivered through cross-border coordination
+          and stakeholder alignment
+        </p>
+      </div>
+
+      <!-- SLIDE 4 — WHERE I'VE BUILT -->
+      <div class="slide slide-4" data-slide="4">
+        <div class="eyebrow">Industry Experience</div>
+        <h2 class="main-text" style="font-size: clamp(1.8rem, 5vw, 3rem)">
+          Built Around<br />Food & Retail
+        </h2>
+        <div class="bullseye">
+          <!-- Rings -->
+          <div class="bullseye-ring ring-outer"></div>
+          <div class="bullseye-ring ring-mid"></div>
+          <div class="bullseye-ring ring-center">
+            <span class="ring-center-text">Food &<br />Retail</span>
+          </div>
+
+          <!-- Core dots -->
+          <div class="bull-dot dot-top"></div>
+          <div class="bull-dot dot-left"></div>
+          <div class="bull-dot dot-right"></div>
+
+          <!-- Core labels -->
+          <div class="bull-label pos-top">
+            <div class="bull-label-name">QSR & Food Retail</div>
+            <div class="bull-label-co">Minor Food · CP Axtra</div>
+          </div>
+          <div class="bull-label pos-left">
+            <div class="bull-label-name">Retail</div>
+            <div class="bull-label-co">Tesco Lotus · CP Axtra</div>
+          </div>
+          <div class="bull-label pos-right">
+            <div class="bull-label-name">Omnichannel</div>
+            <div class="bull-label-co">CP Axtra · Venda (UK)</div>
+          </div>
+
+          <!-- Adjacent labels -->
+          <div class="bull-adj adj-tl">Automotive</div>
+          <div class="bull-adj adj-tr">Property</div>
+          <div class="bull-adj adj-b">IT Consulting</div>
+        </div>
+        <p class="bullseye-bottom">
+          <strong>10+ years</strong> in food & retail ·
+          <strong>20+ years</strong> across 5 industries
+        </p>
+      </div>
+
+      <!-- SLIDE 5 — HOW I LEAD -->
+      <div class="slide slide-5" data-slide="5">
+        <div class="eyebrow">Leadership Style</div>
+        <h2 class="main-text" style="font-size: clamp(2rem, 5.5vw, 3.5rem)">
+          I Build Teams<br />That Deliver
+        </h2>
+        <div class="traits">
+          <div class="trait">
+            <div class="trait-title">Cross-functional & Inclusive</div>
+            <div class="trait-desc">
+              Agile squads, product-led delivery, diverse teams that collaborate
+              across silos
+            </div>
+          </div>
+          <div class="trait">
+            <div class="trait-title">Data & Insight Driven</div>
+            <div class="trait-desc">
+              Prioritization through analytics and customer intelligence, not
+              assumptions
+            </div>
+          </div>
+          <div class="trait">
+            <div class="trait-title">Coach & Develop</div>
+            <div class="trait-desc">
+              High-performing teams built on trust, development, and a
+              people-first culture
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SLIDE 6 — CLOSE -->
+      <div class="slide slide-6" data-slide="6">
+        <div class="eyebrow">What's Next</div>
+        <h2 class="main-text" style="font-size: clamp(1.8rem, 5vw, 3rem)">
+          The Best Is Ahead
+        </h2>
+        <p class="close-sub">
+          I thrive at the intersection of food, retail, and digital — turning
+          customer platforms into growth engines.
+        </p>
+        <div class="close-contact">
+          <a href="mailto:srisuk.r@gmail.com">srisuk.r@gmail.com</a>
+          <span class="phone">+66-95-565-2419</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- NAV -->
+    <div class="counter"><span id="cNum">01</span> / 06</div>
+    <div class="hint" id="hint">← → Arrow Keys</div>
+    <div class="nav-dots" id="navDots"></div>
+    <div class="touch-left" id="touchLeft"></div>
+    <div class="touch-right" id="touchRight"></div>
+
+    <script>
+      const slides = document.querySelectorAll(".slide");
+      const total = slides.length;
+      const cNum = document.getElementById("cNum");
+      const dotsC = document.getElementById("navDots");
+      const hint = document.getElementById("hint");
+      let cur = 0;
+      let locked = false;
+
+      // Build dots
+      slides.forEach((_, i) => {
+        const d = document.createElement("button");
+        d.className = "nav-dot" + (i === 0 ? " active" : "");
+        d.addEventListener("click", () => go(i));
+        dotsC.appendChild(d);
+      });
+
+      function go(idx) {
+        if (locked || idx === cur || idx < 0 || idx >= total) return;
+        locked = true;
+        hint.classList.add("hidden");
+        slides[cur].classList.remove("active");
+        cur = idx;
+        slides[cur].classList.add("active");
+        cNum.textContent = String(cur + 1).padStart(2, "0");
+        dotsC
+          .querySelectorAll(".nav-dot")
+          .forEach((d, i) => d.classList.toggle("active", i === cur));
+        setTimeout(() => {
+          locked = false;
+        }, 750);
+      }
+
+      // Keyboard
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+          e.preventDefault();
+          go(cur + 1);
+        } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+          e.preventDefault();
+          go(cur - 1);
+        }
+      });
+
+      // Touch zones
+      document
+        .getElementById("touchLeft")
+        .addEventListener("click", () => go(cur - 1));
+      document
+        .getElementById("touchRight")
+        .addEventListener("click", () => go(cur + 1));
+
+      // Swipe
+      let sx = 0;
+      document.addEventListener(
+        "touchstart",
+        (e) => {
+          sx = e.touches[0].clientX;
+        },
+        { passive: true },
+      );
+      document.addEventListener(
+        "touchend",
+        (e) => {
+          const d = sx - e.changedTouches[0].clientX;
+          if (Math.abs(d) > 50) {
+            d > 0 ? go(cur + 1) : go(cur - 1);
+          }
+        },
+        { passive: true },
+      );
+    </script>
+  </body>
+</html>
